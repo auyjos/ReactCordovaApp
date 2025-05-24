@@ -1,0 +1,510 @@
+.App {
+    text-align: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+.app-header {
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.app-title {
+    font-size: 1.5rem;
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.platform-indicator {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.tab-navigation {
+    display: flex;
+    background: rgba(255, 255, 255, 0.1);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    overflow-x: auto;
+}
+
+.tab-button {
+    flex: 1;
+    min-width: 80px;
+    padding: 1rem 0.5rem;
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.tab-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.tab-button.active {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border-bottom: 3px solid #ffd700;
+}
+
+.tab-icon {
+    font-size: 1.5rem;
+}
+
+.tab-label {
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.app-content {
+    flex: 1;
+    padding: 2rem;
+    overflow-y: auto;
+}
+
+.home-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.home-content h1 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.status-container {
+    margin: 2rem 0;
+}
+
+.status {
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.status.waiting {
+    background-color: rgba(255, 193, 7, 0.8);
+    color: #333;
+}
+
+.status.ready {
+    background-color: rgba(40, 167, 69, 0.8);
+    color: white;
+}
+
+.features {
+    margin: 3rem 0;
+}
+
+.features h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.feature-card {
+    background: rgba(255, 255, 255, 0.1);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    color: inherit;
+    font-family: inherit;
+    text-align: left;
+    width: 100%;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.feature-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.feature-card p {
+    font-size: 1rem;
+    opacity: 0.9;
+    line-height: 1.5;
+}
+
+.cordova-info {
+    margin-top: 3rem;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+}
+
+.cordova-info h3 {
+    margin-bottom: 1rem;
+    color: #ffd700;
+}
+
+.cordova-info p {
+    margin: 0.5rem 0;
+    font-size: 1.1rem;
+}
+
+/* Device Info Component */
+.device-info-container,
+.camera-container,
+.location-container,
+.interactive-container {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.device-info-container h3,
+.camera-container h3,
+.location-container h3,
+.interactive-container h3 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: #ffd700;
+}
+
+.info-section,
+.feature-section {
+    background: rgba(255, 255, 255, 0.1);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.info-section h4,
+.feature-section h4 {
+    color: #ffd700;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+}
+
+.info-grid,
+.location-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.info-item,
+.location-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+}
+
+.info-label,
+.location-label {
+    font-weight: bold;
+    color: #ffd700;
+}
+
+.info-value,
+.location-value {
+    color: white;
+}
+
+/* Camera Component */
+.camera-buttons,
+.location-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.camera-btn,
+.location-btn,
+.interactive-btn {
+    padding: 1rem 1.5rem;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    flex: 1;
+    min-width: 150px;
+}
+
+.camera-btn.primary,
+.location-btn.primary,
+.interactive-btn {
+    background: #007bff;
+    color: white;
+}
+
+.camera-btn.secondary,
+.location-btn.success {
+    background: #28a745;
+    color: white;
+}
+
+.camera-btn.danger,
+.location-btn.danger,
+.interactive-btn.danger {
+    background: #dc3545;
+    color: white;
+}
+
+.location-btn.maps {
+    background: #17a2b8;
+    color: white;
+}
+
+.camera-btn:hover,
+.location-btn:hover,
+.interactive-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.camera-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.photo-preview {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.captured-photo {
+    max-width: 100%;
+    max-height: 400px;
+    border-radius: 10px;
+    margin: 1rem 0;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Location Component */
+.watching-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(40, 167, 69, 0.2);
+    padding: 1rem;
+    border-radius: 10px;
+    margin: 1rem 0;
+}
+
+.pulse-dot {
+    width: 10px;
+    height: 10px;
+    background: #28a745;
+    border-radius: 50%;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7);
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgba(40, 167, 69, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(40, 167, 69, 0);
+    }
+}
+
+.location-info {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin-top: 1rem;
+}
+
+/* Interactive Features */
+.button-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.interactive-btn.alert {
+    background: #ffc107;
+    color: #333;
+}
+
+.interactive-btn.confirm {
+    background: #17a2b8;
+    color: white;
+}
+
+.interactive-btn.sound {
+    background: #6f42c1;
+    color: white;
+}
+
+.interactive-btn.increment {
+    background: #28a745;
+    color: white;
+}
+
+.interactive-btn.decrement {
+    background: #dc3545;
+    color: white;
+}
+
+.interactive-btn.reset {
+    background: #6c757d;
+    color: white;
+}
+
+.counter-section {
+    text-align: center;
+}
+
+.counter-display {
+    margin: 2rem 0;
+}
+
+.counter-value {
+    font-size: 4rem;
+    font-weight: bold;
+    color: #ffd700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.counter-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.last-action {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    border-radius: 10px;
+    margin-top: 2rem;
+    text-align: center;
+}
+
+/* Error and Browser Notes */
+.error-message {
+    background: rgba(220, 53, 69, 0.2);
+    border: 1px solid #dc3545;
+    color: #dc3545;
+    padding: 1rem;
+    border-radius: 10px;
+    margin: 1rem 0;
+}
+
+.browser-note {
+    background: rgba(255, 193, 7, 0.2);
+    border: 1px solid #ffc107;
+    color: #ffc107;
+    padding: 1rem;
+    border-radius: 10px;
+    margin: 2rem 0;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .app-header {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .app-title {
+        font-size: 1.25rem;
+    }
+
+    .tab-button {
+        min-width: 60px;
+        padding: 0.75rem 0.25rem;
+    }
+
+    .tab-label {
+        display: none;
+    }
+
+    .app-content {
+        padding: 1rem;
+    }
+
+    .home-content h1 {
+        font-size: 2rem;
+    }
+
+    .feature-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .feature-card {
+        padding: 1.5rem;
+    }
+
+    .camera-buttons,
+    .location-buttons {
+        flex-direction: column;
+    }
+
+    .camera-btn,
+    .location-btn {
+        min-width: auto;
+    }
+
+    .button-grid {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    }
+
+    .counter-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .counter-buttons .interactive-btn {
+        min-width: 200px;
+    }
+}

@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.example.myapp" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>React Cordova App</name>
+    <description>A complex React + Cordova application demonstrating native device features</description>
+    <author email="developer@example.com" href="https://example.com">
+        Your Name
+    </author>
+    <content src="index.html" />
+    
+    <!-- Global preferences -->
+    <preference name="DisallowOverscroll" value="true" />
+    <preference name="android-minSdkVersion" value="24" />
+    <preference name="android-targetSdkVersion" value="35" />
+    <preference name="BackgroundColor" value="0xff667eea" />
+    <preference name="Orientation" value="portrait" />
+    
+    <!-- Allow navigation -->
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <allow-intent href="tel:*" />
+    <allow-intent href="sms:*" />
+    <allow-intent href="mailto:*" />
+    <allow-intent href="geo:*" />
+    
+    <!-- Android specific configurations -->
+    <platform name="android">
+        <allow-intent href="market:*" />
+        
+        <!-- Icons -->
+        <icon density="ldpi" src="www/img/logo.png" />
+        <icon density="mdpi" src="www/img/logo.png" />
+        <icon density="hdpi" src="www/img/logo.png" />
+        <icon density="xhdpi" src="www/img/logo.png" />
+        <icon density="xxhdpi" src="www/img/logo.png" />
+        <icon density="xxxhdpi" src="www/img/logo.png" />
+        
+        <!-- Splash screen configuration using new preferences -->
+        <preference name="AndroidWindowSplashScreenAnimatedIcon" value="www/img/logo.png" />
+        <preference name="AndroidWindowSplashScreenBackground" value="#667eea" />
+        <preference name="SplashScreenDelay" value="3000" />
+        <preference name="AutoHideSplashScreen" value="true" />
+        <preference name="FadeSplashScreen" value="true" />
+        <preference name="FadeSplashScreenDuration" value="300" />
+        <preference name="ShowSplashScreenSpinner" value="false" />
+        
+        <!-- Permissions will be automatically added by plugins -->
+    </platform>
+    
+    <!-- iOS specific configurations -->
+    <platform name="ios">
+        <allow-intent href="itms:*" />
+        <allow-intent href="itms-apps:*" />
+    </platform>
+</widget>

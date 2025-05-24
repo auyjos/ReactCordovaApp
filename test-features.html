@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>React + Cordova Feature Test</title>
+        <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f0f0f0; }
+        .test-suite { background: white; padding: 20px; border-radius: 10px; margin-bottom: 20px; }
+        .test-result { padding: 10px; margin: 5px 0; border-radius: 5px; }
+        .pass { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .fail { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .running { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+        button { background: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin: 5px; }
+        button:hover { background: #0056b3; }
+        .feature-test { margin: 10px 0; padding: 10px; border: 1px solid #ddd; border-radius: 5px; }
+    </style>
+    </head>
+    <body>
+        <h1>🧪 React + Cordova Feature Test Suite</h1>
+
+        <div class="test-suite">
+            <h2>📱 Platform Detection</h2>
+            <div id="platform-test" class="test-result running">Running platform
+                detection test...</div>
+        </div>
+
+        <div class="test-suite">
+            <h2>⚛️ React Component Tests</h2>
+            <div id="react-test" class="test-result running">Testing React
+                component loading...</div>
+        </div>
+
+        <div class="test-suite">
+            <h2>🔌 Cordova Plugin Tests</h2>
+            <div class="feature-test">
+                <h3>Device Plugin</h3>
+                <button onclick="testDevice()">Test Device Info</button>
+                <div id="device-test" class="test-result">Click to test</div>
+            </div>
+
+            <div class="feature-test">
+                <h3>Network Plugin</h3>
+                <button onclick="testNetwork()">Test Network Info</button>
+                <div id="network-test" class="test-result">Click to test</div>
+            </div>
+
+            <div class="feature-test">
+                <h3>Battery Plugin</h3>
+                <button onclick="testBattery()">Test Battery Status</button>
+                <div id="battery-test" class="test-result">Click to test</div>
+            </div>
+
+            <div class="feature-test">
+                <h3>Vibration Plugin</h3>
+                <button onclick="testVibration()">Test Vibration</button>
+                <div id="vibration-test" class="test-result">Click to test</div>
+            </div>
+
+            <div class="feature-test">
+                <h3>Camera Plugin</h3>
+                <button onclick="testCamera()">Test Camera</button>
+                <div id="camera-test" class="test-result">Click to test</div>
+            </div>
+
+            <div class="feature-test">
+                <h3>Geolocation Plugin</h3>
+                <button onclick="testLocation()">Test Location</button>
+                <div id="location-test" class="test-result">Click to test</div>
+            </div>
+        </div>
+
+        <div class="test-suite">
+            <h2>📊 Test Summary</h2>
+            <div id="summary" class="test-result">
+                <button onclick="runAllTests()">🚀 Run All Tests</button>
+            </div>
+        </div>
+
+        <script>
+        let testResults = {
+            platform: false,
+            react: false,
+            device: false,
+            network: false,
+            battery: false,
+            vibration: false,
+            camera: false,
+            location: false
+        };
+
+        function updateResult(testId, success, message) {
+            const element = document.getElementById(testId);
+            element.className = `test-result ${success ? 'pass' : 'fail'}`;
+            element.innerHTML = `${success ? '✅' : '❌'} ${message}`;
+            testResults[testId.replace('-test', '')] = success;
+            updateSummary();
+        }
+
+        function updateSummary() {
+            const passed = Object.values(testResults).filter(Boolean).length;
+            const total = Object.keys(testResults).length;
+            const summary = document.getElementById('summary');
+            summary.innerHTML = `Tests: ${passed}/${total} passed`;
+            summary.className = `test-result ${passed === total ? 'pass' : (passed > 0 ? 'running' : 'fail')}`;
+        }
+
+        // Auto-run basic tests
+        window.addEventListener('load', function() {
+            // Platform test
+            setTimeout(() => {
+                const platform = window.cordova ? window.cordova.platformId : 'browser';
+                updateResult('platform-test', true, `Running on: ${platform}`);
+            }, 100);
+
+            // React test
+            setTimeout(() => {
+                const reactLoaded = window.React !== undefined || document.querySelector('[data-react-root]');
+                updateResult('react-test', reactLoaded, reactLoaded ? 'React components loaded successfully' : 'React not detected');
+            }, 200);
+        });
+
+        function testDevice() {
+            if (window.device) {
+                const info = `${device.manufacturer} ${device.model} (${device.platform} ${device.version})`;
+                updateResult('device-test', true, `Device: ${info}`);
+            } else {
+                updateResult('device-test', false, 'Device plugin not available');
+            }
+        }
+
+        function testNetwork() {
+            if (navigator.connection || navigator.network) {
+                const connection = navigator.connection || navigator.network;
+                const type = connection.type || 'unknown';
+                updateResult('network-test', true, `Network: ${type}`);
+            } else {
+                updateResult('network-test', false, 'Network plugin not available');
+            }
+        }
+
+        function testBattery() {
+            if (navigator.getBattery) {
+                navigator.getBattery().then(battery => {
+                    updateResult('battery-test', true, `Battery: ${Math.round(battery.level * 100)}%`);
+                });
+            } else if (window.battery) {
+                updateResult('battery-test', true, `Battery: ${Math.round(window.battery.level * 100)}%`);
+            } else {
+                updateResult('battery-test', false, 'Battery plugin not available');
+            }
+        }
+
+        function testVibration() {
+            if (navigator.vibrate) {
+                navigator.vibrate(200);
+                updateResult('vibration-test', true, 'Vibration triggered successfully');
+            } else {
+                updateResult('vibration-test', false, 'Vibration not available');
+            }
+        }
+
+        function testCamera() {
+            if (navigator.camera && navigator.camera.getPicture) {
+                updateResult('camera-test', true, 'Camera plugin available');
+            } else {
+                updateResult('camera-test', false, 'Camera plugin not available');
+            }
+        }
+
+        function testLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    position => {
+                        updateResult('location-test', true, `Location: ${position.coords.latitude.toFixed(4)}, ${position.coords.longitude.toFixed(4)}`);
+                    },
+                    error => {
+                        updateResult('location-test', false, `Location error: ${error.message}`);
+                    }
+                );
+            } else {
+                updateResult('location-test', false, 'Geolocation not available');
+            }
+        }
+
+        function runAllTests() {
+            testDevice();
+            testNetwork();
+            testBattery();
+            testVibration();
+            testCamera();
+            testLocation();
+        }
+    </script>
+    </body>
+</html>

@@ -1,0 +1,67 @@
+{
+  "name": "com.example.myapp",
+  "displayName": "MyApp",
+  "version": "1.0.0",
+  "description": "A sample Apache Cordova application that responds to the deviceready event.",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --mode production",
+    "build:dev": "webpack --mode development",
+    "dev": "webpack --mode development --watch",
+    "serve": "webpack serve --mode development",
+    "cordova:prepare": "npm run build && cordova prepare",
+    "cordova:build": "npm run build && cordova build",
+    "cordova:build:android": "npm run build && cordova build android",
+    "cordova:build:android:release": "npm run build && cordova build android --release",
+    "cordova:run:browser": "npm run build && cordova run browser",
+    "cordova:run:android": "npm run build && cordova run android",
+    "cordova:run:android:device": "npm run build && cordova run android --device",
+    "cordova:run:ios": "npm run build && cordova run ios",
+    "cordova:emulate:android": "npm run build && cordova emulate android",
+    "clean": "cordova clean",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ecosystem:cordova"
+  ],
+  "author": "Apache Cordova Team",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@babel/core": "^7.27.1",
+    "@babel/preset-env": "^7.27.2",
+    "@babel/preset-react": "^7.27.1",
+    "babel-loader": "^10.0.0",
+    "cordova-android": "^14.0.1",
+    "cordova-browser": "^7.0.0",
+    "cordova-plugin-battery-status": "^2.0.3",
+    "cordova-plugin-camera": "^8.0.0",
+    "cordova-plugin-device": "^3.0.0",
+    "cordova-plugin-geolocation": "^5.0.0",
+    "cordova-plugin-network-information": "^3.0.0",
+    "cordova-plugin-vibration": "^3.1.1",
+    "css-loader": "^7.1.2",
+    "html-webpack-plugin": "^5.6.3",
+    "style-loader": "^4.0.0",
+    "webpack": "^5.99.9",
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.1"
+  },
+  "cordova": {
+    "platforms": [
+      "browser",
+      "android"
+    ],
+    "plugins": {
+      "cordova-plugin-device": {},
+      "cordova-plugin-network-information": {},
+      "cordova-plugin-battery-status": {},
+      "cordova-plugin-vibration": {},
+      "cordova-plugin-camera": {},
+      "cordova-plugin-geolocation": {}
+    }
+  },
+  "dependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  }
+}
