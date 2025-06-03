@@ -28,10 +28,17 @@ yarn-error.log*
 /plugins/
 /platforms/
 
-# Build artifacts
+# Build artifacts - ignore the entire www folder approach
+www/
+
+# Instead, ignore specific generated files in www
 www/js/bundle.js
 www/js/bundle.js.map
 www/js/bundle.js.LICENSE.txt
+www/js/*.bundle.js
+www/js/*.bundle.js.map
+www/js/*.bundle.js.LICENSE.txt
+android/
 build/
 dist/
 
@@ -50,6 +57,28 @@ ehthumbs.db
 *.jks
 local.properties
 gradle-*.zip
+
+# Capacitor
+android/app/build/
+android/app/.cxx/
+android/build/
+android/.gradle/
+android/capacitor-cordova-android-plugins/build/
+android/capacitor-*/build/
+ios/build/
+ios/DerivedData/
+
+# APK files (optional - you might want to keep these for distribution)
+*.apk
+*.aab
+
+# Capacitor generated files
+android/app/src/main/assets/public/
+ios/App/public/
+
+# Gradle
+.gradle/
+**/build/
 
 # Logs
 *.log

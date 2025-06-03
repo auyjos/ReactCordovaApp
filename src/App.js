@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import DeviceInfo from './DeviceInfo';
-import CameraComponent from './CameraComponent';
-import LocationComponent from './LocationComponent';
+import DeviceInfoCapacitor from './DeviceInfoCapacitor';
+import CameraComponentCapacitor from './CameraComponentCapacitor';
+import LocationComponentCapacitor from './LocationComponentCapacitor';
 import InteractiveFeatures from './InteractiveFeatures';
 import TestComponent from './TestComponent';
+import { Capacitor } from '@capacitor/core';
+import { App as CapacitorApp } from '@capacitor/app';
 
 function App() {
     const [isDeviceReady, setIsDeviceReady] = useState(false);
@@ -12,32 +14,39 @@ function App() {
     const [activeTab, setActiveTab] = useState('home');
 
     useEffect(() => {
-        // Listen for the deviceready event
-        const onDeviceReady = () => {
-            console.log('Cordova device is ready!');
-            setIsDeviceReady(true);
-
-            // Check if we're running in Cordova
-            if (window.cordova) {
-                setPlatform(window.cordova.platformId);
-                console.log('Running on platform:', window.cordova.platformId);
+        // Initialize Capacitor app
+        const initializeApp = async () => {
+            try {
+                if (Capacitor.isNativePlatform()) {
+                    // Running on native platform
+                    console.log('Capacitor app is ready!');
+                    setIsDeviceReady(true);
+                    setPlatform(Capacitor.getPlatform());
+                    console.log('Running on platform:', Capacitor.getPlatform());
+                    
+                    // Listen for app state changes
+                    CapacitorApp.addListener('appStateChange', ({ isActive }) => {
+                        console.log('App state changed. Is active?', isActive);
+                    });
+                } else {
+                    // Running in browser
+                    console.log('Running in browser mode');
+                    setIsDeviceReady(true);
+                    setPlatform('web');
+                }
+            } catch (error) {
+                console.log('Capacitor initialization error:', error);
+                // Fallback for development
+                setIsDeviceReady(true);
+                setPlatform('web');
             }
         };
 
-        // Add event listener for deviceready
-        document.addEventListener('deviceready', onDeviceReady, false);
+        initializeApp();
 
-        // For web browsers, simulate device ready
-        if (!window.cordova) {
-            setTimeout(() => {
-                setIsDeviceReady(true);
-                setPlatform('browser');
-            }, 100);
-        }
-
-        // Cleanup
+        // Cleanup function
         return () => {
-            document.removeEventListener('deviceready', onDeviceReady);
+            // Remove Capacitor listeners if needed
         };
     }, []);
 
@@ -53,11 +62,11 @@ function App() {
     const renderContent = () => {
         switch (activeTab) {
             case 'device':
-                return <DeviceInfo />;
+                return <DeviceInfoCapacitor />;
             case 'camera':
-                return <CameraComponent />;
+                return <CameraComponentCapacitor />;
             case 'location':
-                return <LocationComponent />;
+                return <LocationComponentCapacitor />;
             case 'interactive':
                 return <InteractiveFeatures />;
             case 'test':
@@ -65,7 +74,7 @@ function App() {
             default:
                 return (
                     <div className="home-content">
-                        <h1>React + Cordova App</h1>
+                        <h1>React + Capacitor App</h1>
                         <div className="status-container">
                             <div className={`status ${isDeviceReady ? 'ready' : 'waiting'}`}>
                                 {isDeviceReady ? (

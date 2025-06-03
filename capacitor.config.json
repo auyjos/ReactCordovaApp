@@ -1,0 +1,14 @@
+{
+  "appId": "com.example.reactapp",
+  "appName": "React Capacitor App",
+  "webDir": "www",
+  "cordova": {
+    "preferences": {
+      "DisallowOverscroll": "true",
+      "android-minSdkVersion": "24",
+      "android-targetSdkVersion": "35",
+      "BackgroundColor": "0xff667eea",
+      "Orientation": "portrait"
+    }
+  }
+}

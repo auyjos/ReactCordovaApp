@@ -1,37 +1,67 @@
 import React, { useState } from 'react';
+import { Haptics, ImpactStyle, NotificationType } from '@capacitor/haptics';
 
 const InteractiveFeatures = () => {
-    const [vibrationPattern, setVibrationPattern] = useState('short');
     const [counter, setCounter] = useState(0);
     const [lastAction, setLastAction] = useState('');
 
-    const vibrate = (pattern) => {
+    const vibrate = async (pattern) => {
         setLastAction(`Vibrated: ${pattern}`);
 
-        if (navigator.vibrate) {
+        try {
             switch (pattern) {
                 case 'short':
-                    navigator.vibrate(100);
+                    await Haptics.impact({ style: ImpactStyle.Light });
                     break;
                 case 'long':
-                    navigator.vibrate(500);
+                    await Haptics.impact({ style: ImpactStyle.Heavy });
                     break;
                 case 'pattern':
-                    navigator.vibrate([100, 50, 100, 50, 300]);
+                    // Capacitor doesn't support custom patterns, so simulate with multiple impacts
+                    await Haptics.impact({ style: ImpactStyle.Medium });
+                    setTimeout(async () => {
+                        await Haptics.impact({ style: ImpactStyle.Medium });
+                    }, 100);
+                    setTimeout(async () => {
+                        await Haptics.impact({ style: ImpactStyle.Heavy });
+                    }, 300);
                     break;
                 case 'sos':
-                    navigator.vibrate([100, 50, 100, 50, 100, 200, 300, 50, 300, 50, 300, 200, 100, 50, 100, 50, 100]);
+                    // Simulate SOS pattern with notification haptics
+                    await Haptics.notification({ type: NotificationType.Warning });
+                    setTimeout(async () => {
+                        await Haptics.notification({ type: NotificationType.Warning });
+                    }, 150);
+                    setTimeout(async () => {
+                        await Haptics.notification({ type: NotificationType.Error });
+                    }, 500);
                     break;
                 default:
-                    navigator.vibrate(200);
+                    await Haptics.impact({ style: ImpactStyle.Medium });
             }
-        } else if (window.cordova) {
-            // Fallback for older Cordova versions
-            if (navigator.notification && navigator.notification.vibrate) {
-                navigator.notification.vibrate(500);
+        } catch (error) {
+            console.log('Haptics not available:', error);
+            // Fallback to web vibration API
+            if (navigator.vibrate) {
+                switch (pattern) {
+                    case 'short':
+                        navigator.vibrate(100);
+                        break;
+                    case 'long':
+                        navigator.vibrate(500);
+                        break;
+                    case 'pattern':
+                        navigator.vibrate([100, 50, 100, 50, 300]);
+                        break;
+                    case 'sos':
+                        navigator.vibrate([100, 50, 100, 50, 100, 200, 300, 50, 300, 50, 300, 200, 100, 50, 100, 50, 100]);
+                        break;
+                    default:
+                        navigator.vibrate(200);
+                }
+            } else {
+                setLastAction('Vibration not supported in browser');
             }
-        } else {
-            setLastAction('Vibration not supported in browser');
         }
     };
 
